@@ -4,47 +4,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register and Login with Game Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .image-container {
+            margin-right: 20px;
+        }
+        #game-container, #register-container, #login-container {
+            display: none;
+            width: 300px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        #game-container {
+            text-align: left;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .info-text {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
-<!-- Registration Form -->
-<div id="register-container">
-    <h2>Register</h2>
-    <form id="register-form">
-        <label for="reg-username">Username:</label><br>
-        <input type="text" id="reg-username" required><br><br>
-        
-        <label for="reg-password">Password:</label><br>
-        <input type="password" id="reg-password" required><br><br>
-        
-        <button type="submit">Register</button>
-    </form>
-    <p>Already have an account? <a href="#" onclick="toggleForms()">Login</a></p>
-</div>
+<div class="container">
+    <div class="image-container">
+        <img src="https://via.placeholder.com/150" alt="Blocklabs Logo" width="150">
+    </div>
+    <div class="text-container">
+        <div id="register-container">
+            <h2>Register</h2>
+            <form id="register-form">
+                <label for="reg-username">Username:</label><br>
+                <input type="text" id="reg-username" required><br><br>
+                
+                <label for="reg-password">Password:</label><br>
+                <input type="password" id="reg-password" required><br><br>
+                
+                <button type="submit">Register</button>
+            </form>
+            <p>Already have an account? <a href="#" onclick="toggleForms()">Login</a></p>
+        </div>
 
-<!-- Login Form -->
-<div id="login-container" style="display: none;">
-    <h2>Login</h2>
-    <form id="login-form">
-        <label for="login-username">Username:</label><br>
-        <input type="text" id="login-username" required><br><br>
-        
-        <label for="login-password">Password:</label><br>
-        <input type="password" id="login-password" required><br><br>
-        
-        <button type="submit">Login</button>
-    </form>
-    <p>Don't have an account? <a href="#" onclick="toggleForms()">Register</a></p>
-</div>
+        <div id="login-container">
+            <h2>Login</h2>
+            <form id="login-form">
+                <label for="login-username">Username:</label><br>
+                <input type="text" id="login-username" required><br><br>
+                
+                <label for="login-password">Password:</label><br>
+                <input type="password" id="login-password" required><br><br>
+                
+                <button type="submit">Login</button>
+            </form>
+            <p>Don't have an account? <a href="#" onclick="toggleForms()">Register</a></p>
+        </div>
 
-<!-- Game Data -->
-<div id="game-container" style="display: none;">
-    <h2>Welcome, <span id="username-display"></span>!</h2>
-    <p>Your In-game Money: <span id="money-display">0</span></p>
-    <p>Your Items: <span id="items-display">None</span></p>
-    <button onclick="earnMoney()">Earn Money</button>
-    <button onclick="buyItem()">Buy Item</button>
-    <button onclick="logout()">Logout</button>
+        <div id="game-container">
+            <h2>Welcome, <span id="username-display"></span>!</h2>
+            <p>Your In-game Money: <span id="money-display">0</span></p>
+            <p>Your Items: <span id="items-display">None</span></p>
+            <button onclick="earnMoney()">Earn Money</button>
+            <button onclick="buyItem()">Buy Item</button>
+            <button onclick="logout()">Logout</button>
+        </div>
+
+        <div class="info-text">
+            <p><strong>Welcome to Blocklabs, Alpha.</strong><br>
+            We do not permit anyone to register until further notice. Anyone who registers must be on Titanium.Nitro's list of permissions. Any staff willing to join are chosen, and you cannot currently apply. Thanks for coming!</p>
+        </div>
+    </div>
 </div>
 
 <script>
