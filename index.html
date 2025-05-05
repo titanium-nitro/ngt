@@ -7,23 +7,39 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            background-color: #f4f4f4;
         }
         .container {
-            text-align: center;
             display: flex;
-            flex-direction: row;
             align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            width: 80%;
         }
         .image-container {
-            margin-right: 20px;
+            flex: 1;
+            text-align: center;
         }
-        #game-container, #register-container, #login-container {
+        .image-container img {
+            width: 150px;
+        }
+        .text-container {
+            flex: 2;
+            padding: 20px;
+            text-align: left;
+        }
+        .text-container .info-text {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+            word-wrap: break-word;
+        }
+        #register-container, #login-container, #game-container {
             display: none;
             width: 300px;
             padding: 20px;
@@ -64,21 +80,19 @@
         a:hover {
             text-decoration: underline;
         }
-        .info-text {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #555;
-            text-align: center;
-        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="image-container">
-        <!-- Image is now set to "img.png" -->
-        <img src="img.png" alt="Blocklabs Logo" width="150">
+        <img src="img.png" alt="Blocklabs Logo">
+        <div class="info-text">
+            <p><strong>Welcome to Blocklabs, Alpha.</strong><br>
+            We do not permit anyone to register until further notice. Anyone who registers must be on Titanium.Nitro's list of permissions. Any staff willing to join are chosen, and you cannot currently apply. Thanks for coming!</p>
+        </div>
     </div>
+
     <div class="text-container">
         <div id="register-container">
             <h2>Register</h2>
@@ -115,11 +129,6 @@
             <button onclick="earnMoney()">Earn Money</button>
             <button onclick="buyItem()">Buy Item</button>
             <button onclick="logout()">Logout</button>
-        </div>
-
-        <div class="info-text">
-            <p><strong>Welcome to Blocklabs, Alpha.</strong><br>
-            We do not permit anyone to register until further notice. Anyone who registers must be on Titanium.Nitro's list of permissions. Any staff willing to join are chosen, and you cannot currently apply. Thanks for coming!</p>
         </div>
     </div>
 </div>
