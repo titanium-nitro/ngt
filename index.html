@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register and Login</title>
+    <title>Register and Login with Game Data</title>
 </head>
 <body>
 
 <!-- Registration Form -->
 <div id="register-container">
     <h2>Register</h2>
-    <form action="#">
+    <form id="register-form">
         <label for="reg-username">Username:</label><br>
         <input type="text" id="reg-username" required><br><br>
         
@@ -25,7 +25,7 @@
 <!-- Login Form -->
 <div id="login-container" style="display: none;">
     <h2>Login</h2>
-    <form action="#">
+    <form id="login-form">
         <label for="login-username">Username:</label><br>
         <input type="text" id="login-username" required><br><br>
         
@@ -37,18 +37,125 @@
     <p>Don't have an account? <a href="#" onclick="toggleForms()">Register</a></p>
 </div>
 
+<!-- Game Data -->
+<div id="game-container" style="display: none;">
+    <h2>Welcome, <span id="username-display"></span>!</h2>
+    <p>Your In-game Money: <span id="money-display">0</span></p>
+    <p>Your Items: <span id="items-display">None</span></p>
+    <button onclick="earnMoney()">Earn Money</button>
+    <button onclick="buyItem()">Buy Item</button>
+    <button onclick="logout()">Logout</button>
+</div>
+
 <script>
+    // Toggle between login and register forms
     function toggleForms() {
         var registerForm = document.getElementById('register-container');
         var loginForm = document.getElementById('login-container');
+        var gameContainer = document.getElementById('game-container');
         
         if (registerForm.style.display === "none") {
             registerForm.style.display = "block";
             loginForm.style.display = "none";
+            gameContainer.style.display = "none";
         } else {
             registerForm.style.display = "none";
             loginForm.style.display = "block";
+            gameContainer.style.display = "none";
         }
+    }
+
+    // Handle registration form submission
+    document.getElementById('register-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var username = document.getElementById('reg-username').value;
+        var password = document.getElementById('reg-password').value;
+
+        if (username && password) {
+            // Store username, password, money, and items in localStorage
+            localStorage.setItem('username', username);
+            localStorage.setItem('password', password);
+            localStorage.setItem('money', 0); // Starting money
+            localStorage.setItem('items', JSON.stringify([])); // Empty items list
+
+            alert('Registration successful! You can now log in.');
+            toggleForms();  // Switch to login form
+        } else {
+            alert('Please fill in both fields.');
+        }
+    });
+
+    // Handle login form submission
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var username = document.getElementById('login-username').value;
+        var password = document.getElementById('login-password').value;
+
+        var storedUsername = localStorage.getItem('username');
+        var storedPassword = localStorage.getItem('password');
+
+        // Check if entered username and password match what's stored
+        if (username === storedUsername && password === storedPassword) {
+            // Login successful, show the game screen
+            alert('Login successful!');
+            loadGameData();
+        } else {
+            alert('Invalid username or password!');
+        }
+    });
+
+    // Load the game data after successful login
+    function loadGameData() {
+        var username = localStorage.getItem('username');
+        var money = localStorage.getItem('money');
+        var items = JSON.parse(localStorage.getItem('items'));
+
+        // Show the game container and hide the login/register forms
+        document.getElementById('login-container').style.display = 'none';
+        document.getElementById('register-container').style.display = 'none';
+        document.getElementById('game-container').style.display = 'block';
+
+        // Display username, money, and items
+        document.getElementById('username-display').textContent = username;
+        document.getElementById('money-display').textContent = money;
+        document.getElementById('items-display').textContent = items.join(', ') || 'None';
+    }
+
+    // Function to earn money
+    function earnMoney() {
+        var money = parseInt(localStorage.getItem('money')) || 0;
+        money += 100; // Earn 100 in-game money
+        localStorage.setItem('money', money);
+
+        // Update the display
+        document.getElementById('money-display').textContent = money;
+    }
+
+    // Function to buy an item
+    function buyItem() {
+        var item = prompt("Enter the name of the item you want to buy:");
+        if (item) {
+            var items = JSON.parse(localStorage.getItem('items')) || [];
+            items.push(item); // Add item to the list
+            localStorage.setItem('items', JSON.stringify(items));
+
+            // Update the display
+            document.getElementById('items-display').textContent = items.join(', ');
+        }
+    }
+
+    // Logout function
+    function logout() {
+        // Clear the game data from the session and show login/register forms
+        localStorage.removeItem('username');
+        localStorage.removeItem('password');
+        localStorage.removeItem('money');
+        localStorage.removeItem('items');
+
+        alert('You have logged out.');
+        toggleForms(); // Go back to login/register forms
     }
 </script>
 
